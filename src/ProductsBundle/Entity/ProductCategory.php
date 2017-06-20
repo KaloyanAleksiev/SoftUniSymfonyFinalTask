@@ -4,6 +4,8 @@ namespace ProductsBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * ProductCategory
@@ -47,6 +49,7 @@ class ProductCategory
      * @var string
      *
      * @ORM\Column(name="image", type="string", length=255, nullable=true)
+     * @Assert\Image(mimeTypesMessage="Upload image")
      */
     private $image;
 
@@ -179,15 +182,12 @@ class ProductCategory
     /**
      * Set image
      *
-     * @param string $image
-     *
-     * @return ProductCategory
+     * @param File $image
      */
-    public function setImage($image)
+    public function setImage(File $image = null)
     {
         $this->image = $image;
 
-        return $this;
     }
 
     /**
