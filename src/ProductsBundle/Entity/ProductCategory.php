@@ -2,6 +2,7 @@
 
 namespace ProductsBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -57,16 +58,13 @@ class ProductCategory
     private $rank;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="parent", type="string", length=255, nullable=true)
+     * @ORM\ManyToOne(targetEntity="ProductsBundle\Entity\ProductCategory", inversedBy="children")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      */
     private $parent;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="children", type="string", length=255, nullable=true)
+     *@ORM\OneToMany(targetEntity="ProductsBundle\Entity\ProductCategory", mappedBy="parent")
      */
     private $children;
 
@@ -84,6 +82,17 @@ class ProductCategory
      */
     private $updatedAt;
 
+    /**
+     * @var ArrayCollection
+     * @ORM\ManyToMany(targetEntity="ProductsBundle\Entity\Product", mappedBy="productCategories")
+     */
+    private $products;
+
+    public function __construct()
+    {
+        $this->products = new ArrayCollection();
+        $this->children = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -309,6 +318,39 @@ class ProductCategory
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getProducts()
+    {
+        return $this->products;
+    }
+
+    /**
+     * @param ArrayCollection $products
+     */
+    public function setProducts($products)
+    {
+        $this->products = $products;
+    }
+
+    public function addProduct(Product $product){
+        if(!$this->products->contains($product)){
+            $this->products->add($product);
+        }
+    }
+
+    public function removeProduct(Product $product){
+        if($this->products->contains($product)){
+            $this->products->removeElement($product);
+        }
+    }
+
+    public function __toString()
+    {
+        return $this->getTitle();
     }
 }
 

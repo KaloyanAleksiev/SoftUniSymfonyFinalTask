@@ -2,6 +2,7 @@
 
 namespace ProductsBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -87,6 +88,17 @@ class Product
      */
     private $updatedAt;
 
+    /**
+     * @var ArrayCollection
+     * @ORM\ManyToMany(targetEntity="ProductsBundle\Entity\ProductCategory", inversedBy="products")
+     * @ORM\JoinTable(name="product_categories")
+     */
+    private $productCategories;
+
+    public function __construct()
+    {
+        $this->productCategories = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -305,6 +317,36 @@ class Product
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getProductCategories()
+    {
+        return $this->productCategories;
+    }
+
+    /**
+     * @param ArrayCollection $productCategories
+     */
+    public function setProductCategories($productCategories)
+    {
+        $this->productCategories = $productCategories;
+    }
+
+    public function addProductCategory(ProductCategory $productCategory){
+        if(!$this->productCategories->contains($productCategory)){
+            $productCategory->addProduct($this);
+            $this->productCategories->add($productCategory);
+        }
+    }
+
+    public function removeProductCategory(ProductCategory $productCategory){
+        if($this->productCategories->contains($productCategory)){
+            $productCategory->removeProduct($this);
+            $this->productCategories->removeElement($productCategory);
+        }
     }
 
     function __toString()
