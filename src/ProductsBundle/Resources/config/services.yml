@@ -1,4 +1,15 @@
+parameters:
+    product_directory: '%kernel.root_dir%../web/uploads/product'
+    product_category_directory: '%kernel.root_dir%../web/uploads/product-category'
+
+twig:
+    globals:
+        uploads_directory: '/uploads/'
+
 services:
-#    products.example:
-#        class: ProductsBundle\Example
-#        arguments: ["@service_id", "plain_value", "%parameter%"]
+    productsbundle.product_uploader:
+        class: ProductsBundle\Services\FileUploader
+        arguments: ['%product_directory%']
+    productsbundle.product_category_uploader:
+        class: ProductsBundle\Services\FileUploader
+        arguments: ['%product_category_directory%']

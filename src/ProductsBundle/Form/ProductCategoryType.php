@@ -7,7 +7,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ProductType extends AbstractType
+class ProductCategoryType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -17,11 +17,10 @@ class ProductType extends AbstractType
         $builder
             ->add('slug')
             ->add('title')
-            ->add('subtitle')
             ->add('description')
             ->add('image', FileType::class, ['label' => 'Upload an image:'])
-            ->add('price')
-            ->add('rank');
+            ->add('rank')
+            ->add('parent');
     }
     
     /**
@@ -30,7 +29,7 @@ class ProductType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'ProductsBundle\Entity\Product'
+            'data_class' => 'ProductsBundle\Entity\ProductCategory'
         ));
     }
 
@@ -39,7 +38,7 @@ class ProductType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'productsbundle_product';
+        return 'productsbundle_productcategory';
     }
 
 

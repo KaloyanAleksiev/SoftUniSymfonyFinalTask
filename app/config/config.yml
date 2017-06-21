@@ -8,8 +8,6 @@ imports:
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en
-    product_directory: '%kernel.root_dir%/web/uploads/product'
-    product_category_directory: '%kernel.root_dir%/web/uploads/product-category'
 
 framework:
     #esi: ~
