@@ -1,4 +1,8 @@
 parameters:
+    productsbundle.entity.product_category: 'ProductsBundle\Entity\ProductCategory'
+    productsbundle.service.product_category_manager: 'ProductBundle\Services\ProductCategoryManager'
+    productsbundle.entity.product: 'ProductsBundle\Entity\Product'
+    productsbundle.service.product_manager: 'ProductBundle\Services\ProductManager'
     product_directory: '%kernel.root_dir%../web/uploads/product'
     product_category_directory: '%kernel.root_dir%../web/uploads/product-category'
 
@@ -7,6 +11,18 @@ twig:
         uploads_directory: '/uploads/'
 
 services:
+    productsbundle.product_category_manager:
+            class: '%productsbundle.service.product_category_manager%'
+            arguments:
+                entityManager: '@doctrine.orm.entity_manager'
+                class: '%productsbundle.entity.product_category%'
+                container: '@service_container'
+    productsbundle.product_manager:
+        class: '%productsbundle.service.product_manager%'
+        arguments:
+            entityManager: '@doctrine.orm.entity_manager'
+            class: '%productsbundle.entity.product%'
+            container: '@service_container'
     productsbundle.product_uploader:
         class: ProductsBundle\Services\FileUploader
         arguments: ['%product_directory%']

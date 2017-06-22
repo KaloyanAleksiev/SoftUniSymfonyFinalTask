@@ -4,13 +4,14 @@ namespace ProductsBundle\Services;
 
 use Doctrine\ORM\EntityManager;
 use ProductsBundle\Entity\Product;
+use ProductsBundle\Entity\ProductCategory;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 
-class ProductManager
+class ProductCategoryManager
 {
     protected $em, $class, $container, $repository;
 
-    public function __construct(EntityManager $em, Product $class,  Container $container)
+    public function __construct(EntityManager $em, ProductCategory $class,  Container $container)
     {
         $this->em = $em;
         $this->class = $class;
@@ -28,14 +29,14 @@ class ProductManager
         return $this->em;
     }
 
-    public function createProduct()
+    public function createCategory()
     {
         return new $this->class;
     }
 
-    public function removeProduct(Product $product)
+    public function removeCategory(ProductCategory $productCategory)
     {
-        $this->getEntityManager()->remove($product);
+        $this->getEntityManager()->remove($productCategory);
         $this->getEntityManager()->flush();
     }
 
@@ -43,5 +44,9 @@ class ProductManager
     {
         return $this->repository->findBy($criteria);
     }
-}
 
+    public function addProduct(Product $product)
+    {
+        $this->getClass()->addProduct($product);
+    }
+}
