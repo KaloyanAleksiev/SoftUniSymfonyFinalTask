@@ -45,8 +45,15 @@ class ProductCategoryController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $productCategory->setSlug($this->get('slugger')->slugify($productCategory->getTitle()));
+
             $productCategory->setCreatedAt(new \DateTime());
             $productCategory->setUpdatedAt(new \DateTime());
+
+            $image = $productCategory->getImage();
+            if($image != null) {
+                $imageName = $this->get('productsbundle.product_category_uploader')->upload($image);
+                $productCategory->setImage($imageName);
+            }
             $em = $this->getDoctrine()->getManager();
             $em->persist($productCategory);
             $em->flush();

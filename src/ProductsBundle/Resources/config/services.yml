@@ -3,8 +3,8 @@ parameters:
     productsbundle.service.product_category_manager: 'ProductBundle\Services\ProductCategoryManager'
     productsbundle.entity.product: 'ProductsBundle\Entity\Product'
     productsbundle.service.product_manager: 'ProductBundle\Services\ProductManager'
-    product_directory: '%kernel.root_dir%../web/uploads/product'
-    product_category_directory: '%kernel.root_dir%../web/uploads/product-category'
+    product_directory: '%kernel.root_dir%/../web/uploads/product'
+    product_category_directory: '%kernel.root_dir%/../web/uploads/product-category'
 
 twig:
     globals:

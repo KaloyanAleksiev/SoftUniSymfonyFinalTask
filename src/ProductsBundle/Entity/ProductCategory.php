@@ -185,9 +185,9 @@ class ProductCategory
     /**
      * Set image
      *
-     * @param File $image
+     * @param string $image
      */
-    public function setImage(File $image = null)
+    public function setImage($image = null)
     {
         $this->image = $image;
 
