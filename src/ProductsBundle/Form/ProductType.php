@@ -2,8 +2,13 @@
 
 namespace ProductsBundle\Form;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,12 +20,13 @@ class ProductType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title')
-            ->add('subtitle')
-            ->add('description')
-            ->add('image', FileType::class, ['label' => 'Upload an image:'])
-            ->add('price')
-            ->add('rank');
+            ->add('title', TextType::class, ['label' => 'Title: ', 'required' => true])
+            ->add('subtitle', TextType::class, ['label' => 'SubTitle: ', 'required' => true])
+            ->add('description', TextareaType::class, ['label' => 'Decription: ', 'required' => true])
+            ->add('image', FileType::class, ['label' => 'Upload an image: ', 'required' => false])
+            ->add('price', MoneyType::class, ['label' => 'Price: ', 'divisor' => 100, 'required' => true])
+            ->add('rank', NumberType::class, ['label' => 'Rank: ', 'required' => true])
+            ->add('productCategories', EntityType::class, ['label' => 'Product category: ', 'class' => 'ProductsBundle:ProductCategory', 'choice_label' => 'title', 'multiple' => true, 'expanded' => true]);
     }
     
     /**
