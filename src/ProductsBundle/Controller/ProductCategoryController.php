@@ -44,6 +44,9 @@ class ProductCategoryController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $productCategory->setSlug($this->get('slugger')->slugify($productCategory->getTitle()));
+            $productCategory->setCreatedAt(new \DateTime());
+            $productCategory->setUpdatedAt(new \DateTime());
             $em = $this->getDoctrine()->getManager();
             $em->persist($productCategory);
             $em->flush();

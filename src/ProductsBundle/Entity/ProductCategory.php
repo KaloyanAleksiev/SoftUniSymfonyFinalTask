@@ -4,6 +4,7 @@ namespace ProductsBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -12,6 +13,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="product_category")
  * @ORM\Entity(repositoryClass="ProductsBundle\Repository\ProductCategoryRepository")
+ * @UniqueEntity(fields={"slug"}, message="This slug is already in use!")
+ * @UniqueEntity(fields={"title"}, message="This title is alreayd in use!")
  */
 class ProductCategory
 {
@@ -340,6 +343,7 @@ class ProductCategory
         if(!$this->products->contains($product)){
             $this->products->add($product);
         }
+        return $product;
     }
 
     public function removeProduct(Product $product){

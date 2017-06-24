@@ -2,8 +2,12 @@
 
 namespace ProductsBundle\Form;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,12 +19,11 @@ class ProductCategoryType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('slug')
-            ->add('title')
-            ->add('description')
-            ->add('image', FileType::class, ['label' => 'Upload an image:'])
-            ->add('rank')
-            ->add('parent');
+            ->add('title', TextType::class, ['label' => 'Title: ', 'required' => true])
+            ->add('description', TextareaType::class, ['label' => 'Description: ', 'required' => true])
+            ->add('image', FileType::class, ['label' => 'Upload an image: ', 'required' => false])
+            ->add('rank', NumberType::class, ['label' => 'Rank: ', 'required' => true])
+            ->add('parent', EntityType::class, ['class' => 'ProductsBundle\Entity\ProductCategory', 'label' => 'Add Parent Category (optional): ', 'required' => false]);
     }
     
     /**

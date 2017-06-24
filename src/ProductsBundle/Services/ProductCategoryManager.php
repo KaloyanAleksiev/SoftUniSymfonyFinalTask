@@ -47,6 +47,9 @@ class ProductCategoryManager
 
     public function addProduct(Product $product)
     {
-        $this->getClass()->addProduct($product);
+        $productCategory = $this->getClass();
+        $productCategory->addProduct($product);
+        $this->getEntityManager()->persist($productCategory);
+        $this->getEntityManager()->flush();
     }
 }

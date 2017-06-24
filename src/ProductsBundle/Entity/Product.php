@@ -347,6 +347,7 @@ class Product
             $productCategory->addProduct($this);
             $this->productCategories->add($productCategory);
         }
+        return $productCategory;
     }
 
     public function removeProductCategory(ProductCategory $productCategory){
