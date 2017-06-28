@@ -21,9 +21,9 @@ class ProductCategoryType extends AbstractType
         $builder
             ->add('title', TextType::class, ['label' => 'Title: ', 'required' => true])
             ->add('description', TextareaType::class, ['label' => 'Description: ', 'required' => true])
-            ->add('image', FileType::class, ['label' => 'Upload an image: ', 'required' => false])
             ->add('rank', NumberType::class, ['label' => 'Rank: ', 'required' => true])
-            ->add('parent', EntityType::class, ['class' => 'ProductsBundle\Entity\ProductCategory', 'label' => 'Add Parent Category (optional): ', 'required' => false]);
+            ->add('parent', EntityType::class, ['class' => 'ProductsBundle\Entity\ProductCategory', 'label' => 'Add Parent Category (optional): ', 'required' => false])
+            ->add('image', FileType::class, ['data_class' => null, 'label' => 'Upload an image (optional): ', 'required' => false]);
     }
     
     /**

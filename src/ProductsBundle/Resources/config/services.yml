@@ -8,7 +8,8 @@ parameters:
 
 twig:
     globals:
-        uploads_directory: '/uploads/'
+        product_directory: '/uploads/products/'
+        product_category_directory: '/uploads/product-category/'
 
 services:
     slugger:

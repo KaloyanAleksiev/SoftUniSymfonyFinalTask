@@ -5,7 +5,6 @@ namespace ProductsBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -49,8 +48,6 @@ class ProductCategory
     private $description;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="image", type="string", length=255, nullable=true)
      * @Assert\Image(mimeTypesMessage="Upload image")
      */
@@ -183,24 +180,19 @@ class ProductCategory
     }
 
     /**
-     * Set image
-     *
-     * @param string $image
-     */
-    public function setImage($image = null)
-    {
-        $this->image = $image;
-
-    }
-
-    /**
-     * Get image
-     *
-     * @return string
+     * @return mixed
      */
     public function getImage()
     {
         return $this->image;
+    }
+
+    /**
+     * @param mixed $image
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
     }
 
     /**
