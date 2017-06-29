@@ -5,7 +5,8 @@ namespace ProductsBundle\Controller;
 use ProductsBundle\Entity\ProductCategory;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Productcategory controller.
@@ -91,12 +92,27 @@ class ProductCategoryController extends Controller
      */
     public function editAction(Request $request, ProductCategory $productCategory)
     {
+
         $deleteForm = $this->createDeleteForm($productCategory);
         $editForm = $this->createForm('ProductsBundle\Form\ProductCategoryType', $productCategory);
+        $uploadedImage = $productCategory->getImage();
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $productCategory->setSlug($this->get('slugger')->slugify($productCategory->getTitle()));
+
+            $productCategory->setUpdatedAt(new \DateTime());
+
+            $image = $productCategory->getImage();
+            if($image != null) {
+                $imageName = $this->get('productsbundle.product_category_uploader')->upload($image);
+                $productCategory->setImage($imageName);
+            }elseif ($uploadedImage != null){
+                $productCategory->setImage($uploadedImage);
+            }
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($productCategory);
+            $em->flush();
 
             return $this->redirectToRoute('admin_product-category_edit', array('id' => $productCategory->getId()));
         }
@@ -117,9 +133,13 @@ class ProductCategoryController extends Controller
     public function deleteAction(Request $request, ProductCategory $productCategory)
     {
         $form = $this->createDeleteForm($productCategory);
+        $children = $productCategory->getChildren();
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if($children != null){
+                throw new \Exception('You are trying to delete a parent category. Please consider removing all children categories first!');
+            }
             $em = $this->getDoctrine()->getManager();
             $em->remove($productCategory);
             $em->flush();

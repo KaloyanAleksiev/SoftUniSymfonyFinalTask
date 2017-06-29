@@ -22,21 +22,41 @@
                 <td>{{ productCategory.description }}</td>
             </tr>
             <tr>
-                <th>Image</th>
-                <td>{{ productCategory.image }}</td>
-            </tr>
-            <tr>
                 <th>Rank</th>
                 <td>{{ productCategory.rank }}</td>
             </tr>
             <tr>
-                <th>Createdat</th>
+                <th>Created At</th>
                 <td>{% if productCategory.createdAt %}{{ productCategory.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
             </tr>
             <tr>
-                <th>Updatedat</th>
+                <th>Updated At</th>
                 <td>{% if productCategory.updatedAt %}{{ productCategory.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
             </tr>
+            {% if productCategory.parent != null %}
+                <tr>
+                    <th>Parent category:</th>
+                    <td>{{ productCategory.parent }}</td>
+                </tr>
+            {% endif %}
+            {% if productCategory.image != null %}
+            <tr>
+                <th>Image Preview:</th>
+                <td><img width="300px" src="{{ asset('uploads/product-category/' ~ productCategory.image) }}"></td>
+            </tr>
+            {% endif %}
+            {% if productCategory.children|length > 0%}
+            <tr>
+                <th>Children categories:</th>
+                <td>
+                    <ul>
+                {% for child in productCategory.children %}
+                    <li>{{ child }}</li>
+                {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+            {% endif %}
         </tbody>
     </table>
 
