@@ -15,13 +15,13 @@ services:
     slugger:
             class: ProductsBundle\Services\Slugger
     productsbundle.product_category_manager:
-            class: '%productsbundle.service.product_category_manager%'
-            arguments:
-                entityManager: '@doctrine.orm.entity_manager'
-                class: '%productsbundle.entity.product_category%'
-                container: '@service_container'
+        class: ProductsBundle\Services\ProductCategoryManager
+        arguments:
+            entityManager: '@doctrine.orm.entity_manager'
+            class: '%productsbundle.entity.product_category%'
+            container: '@service_container'
     productsbundle.product_manager:
-        class: '%productsbundle.service.product_manager%'
+        class: ProductsBundle\Services\ProductManager
         arguments:
             entityManager: '@doctrine.orm.entity_manager'
             class: '%productsbundle.entity.product%'

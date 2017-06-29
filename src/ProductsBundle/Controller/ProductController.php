@@ -44,6 +44,16 @@ class ProductController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $product->setSlug($this->get('slugger')->slugify($product->getTitle()));
+
+            $product->setCreatedAt(new \DateTime());
+            $product->setUpdatedAt(new \DateTime());
+
+            $image = $product->getImage();
+            if($image != null){
+                $imageName = $this->get('productsbundle.product_uploader')->upload($image);
+                $product->setImage($imageName);
+            }
             $em = $this->getDoctrine()->getManager();
             $em->persist($product);
             $em->flush();
@@ -83,10 +93,25 @@ class ProductController extends Controller
     {
         $deleteForm = $this->createDeleteForm($product);
         $editForm = $this->createForm('ProductsBundle\Form\ProductType', $product);
+        $uploadedImage = $product->getImage();
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $product->setSlug($this->get('slugger')->slugify($product->getTitle()));
+
+            $product->setCreatedAt(new \DateTime());
+            $product->setUpdatedAt(new \DateTime());
+
+            $image = $product->getImage();
+            if($image != null){
+                $imageName = $this->get('productsbundle.product_uploader')->upload($image);
+                $product->setImage($imageName);
+            }elseif ($uploadedImage != null){
+                $product->setImage($uploadedImage);
+            }
+            $em = $this->get('productsbundle.product_manager')->getEntityManager();
+            $em->persist($product);
+            $em->flush();
 
             return $this->redirectToRoute('admin_product_edit', array('id' => $product->getId()));
         }
