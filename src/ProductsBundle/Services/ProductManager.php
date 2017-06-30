@@ -4,13 +4,12 @@ namespace ProductsBundle\Services;
 
 use Doctrine\ORM\EntityManager;
 use ProductsBundle\Entity\Product;
-use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 
 class ProductManager
 {
     protected $em, $class, $container, $repository;
 
-    public function __construct(EntityManager $em, Product $class,  Container $container)
+    public function __construct(EntityManager $em, $class, $container)
     {
         $this->em = $em;
         $this->class = $class;

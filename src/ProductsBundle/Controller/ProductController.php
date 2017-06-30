@@ -99,7 +99,6 @@ class ProductController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $product->setSlug($this->get('slugger')->slugify($product->getTitle()));
 
-            $product->setCreatedAt(new \DateTime());
             $product->setUpdatedAt(new \DateTime());
 
             $image = $product->getImage();

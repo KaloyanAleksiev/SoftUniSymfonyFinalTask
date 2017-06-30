@@ -34,13 +34,32 @@
                 <td>{{ product.rank }}</td>
             </tr>
             <tr>
-                <th>Createdat</th>
+                <th>Created At</th>
                 <td>{% if product.createdAt %}{{ product.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
             </tr>
             <tr>
-                <th>Updatedat</th>
+                <th>Updated At</th>
                 <td>{% if product.updatedAt %}{{ product.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
             </tr>
+
+            {% if product.productCategories|length > 0 %}
+            <tr>
+                <th>Categories</th>
+                <td>
+                    <ul>
+                        {% for category in product.productCategories %}
+                            <li>{{ category }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+            {% endif %}
+            {% if product.image != null %}
+            <tr>
+                <th>Image Preview:</th>
+                <td><img width="300px" src="{{ asset('uploads/product/' ~ product.image) }}"></td>
+            </tr>
+        {% endif %}
         </tbody>
     </table>
 

@@ -24,7 +24,11 @@
                 <td>{{ productCategory.slug }}</td>
                 <td>{{ productCategory.title }}</td>
                 <td>{{ productCategory.description }}</td>
-                <td><a href="{{ asset('uploads/product-category/' ~ productCategory.image) }}">View image</a></td>
+                {% if productCategory.image != null %}
+                    <td><a href="{{ asset('uploads/product-category/' ~ productCategory.image) }}">View image</a></td>
+                {% else %}
+                    <td>No Image</td>
+                {% endif %}
                 <td>{{ productCategory.rank }}</td>
                 <td>{% if productCategory.createdAt %}{{ productCategory.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>{% if productCategory.updatedAt %}{{ productCategory.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>

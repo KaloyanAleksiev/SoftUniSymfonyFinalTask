@@ -13,8 +13,10 @@
                 <th>Description</th>
                 <th>Price</th>
                 <th>Rank</th>
-                <th>Createdat</th>
-                <th>Updatedat</th>
+                <th>Created At</th>
+                <th>Updated At</th>
+                <th>Image</th>
+                <th>Categories</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -30,6 +32,22 @@
                 <td>{{ product.rank }}</td>
                 <td>{% if product.createdAt %}{{ product.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>{% if product.updatedAt %}{{ product.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                {% if product.image != null %}
+                    <td><a href="{{ asset('uploads/product/' ~ product.image) }}">View image</a></td>
+                {% else %}
+                    <td>No Image</td>
+                {% endif %}
+                {% if product.productCategories|length > 0 %}
+                    <td>
+                        <ul>
+                            {% for category in product.productCategories %}
+                            <li>{{ category }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                {% else %}
+                    <td>No Caregories</td>
+                {% endif %}
                 <td>
                     <ul>
                         <li>
