@@ -6,7 +6,7 @@ class Mailer
     public function sendNotificationForNewProduct(){
 
         $transport = new \Swift_SmtpTransport('smtp.gmail.com', 465,'ssl');
-        $transport->setUsername('heuckam@gmail.com');
+        $transport->setUsername('');
         $transport->setPassword('');
 
         $mailer = new \Swift_Mailer($transport);
