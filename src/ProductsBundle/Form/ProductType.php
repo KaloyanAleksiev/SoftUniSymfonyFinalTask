@@ -23,10 +23,10 @@ class ProductType extends AbstractType
             ->add('title', TextType::class, ['label' => 'Title: ', 'required' => true])
             ->add('subtitle', TextType::class, ['label' => 'SubTitle: ', 'required' => true])
             ->add('description', TextareaType::class, ['label' => 'Description: ', 'required' => true])
-            ->add('image', FileType::class, ['data_class' => null, 'label' => 'Upload an image: ', 'required' => false])
+            ->add('image', FileType::class, ['data_class' => null, 'label' => 'Upload an image (optional): ', 'required' => false])
             ->add('price', MoneyType::class, ['label' => 'Price: ', 'divisor' => 100, 'required' => true])
             ->add('rank', NumberType::class, ['label' => 'Rank: ', 'required' => true])
-            ->add('productCategories', EntityType::class, ['label' => 'Product category: ', 'class' => 'ProductsBundle:ProductCategory', 'choice_label' => 'title', 'multiple' => true, 'expanded' => true]);
+            ->add('productCategories', EntityType::class, ['label' => 'Product category (optional): ', 'class' => 'ProductsBundle:ProductCategory', 'choice_label' => 'title', 'multiple' => true, 'expanded' => true]);
     }
 
     /**

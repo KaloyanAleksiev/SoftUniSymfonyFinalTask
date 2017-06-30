@@ -14,6 +14,8 @@ twig:
 services:
     slugger:
             class: ProductsBundle\Services\Slugger
+    mailer:
+            class: ProductsBundle\Services\Mailer
     productsbundle.product_category_manager:
         class: ProductsBundle\Services\ProductCategoryManager
         arguments:
