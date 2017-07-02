@@ -33,6 +33,10 @@ class ProductCategoryManager
         return new $this->class;
     }
 
+    public function getRepository(){
+        return $this->repository;
+    }
+
     public function removeCategory(ProductCategory $productCategory)
     {
         $this->getEntityManager()->remove($productCategory);

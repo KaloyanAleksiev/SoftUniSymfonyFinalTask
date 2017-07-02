@@ -158,4 +158,13 @@ class ProductController extends Controller
             ->getForm()
         ;
     }
+
+    /**
+     * @Route("/{id}/view",name="admin_product_view")
+     * @Method("GET")
+     */
+    public function viewAction()
+    {
+
+    }
 }
