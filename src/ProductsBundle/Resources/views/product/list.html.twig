@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Products list</h1>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Slug</th>
+            <th>Title</th>
+            <th>Subtitle</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Rank</th>
+            <th>Created At</th>
+            <th>Updated At</th>
+            <th>Image</th>
+            <th>Categories</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for product in products %}
+            <tr>
+                <td><a href="{{ path('admin_product_show', { 'id': product.id }) }}">{{ product.id }}</a></td>
+                <td>{{ product.slug }}</td>
+                <td>{{ product.title }}</td>
+                <td>{{ product.subtitle }}</td>
+                <td>{{ product.description }}</td>
+                <td>{{ product.price }}</td>
+                <td>{{ product.rank }}</td>
+                <td>{% if product.createdAt %}{{ product.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if product.updatedAt %}{{ product.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                {% if product.image != null %}
+                    <td><a href="{{ asset('uploads/product/' ~ product.image) }}">View image</a></td>
+                {% else %}
+                    <td>No Image</td>
+                {% endif %}
+                {% if product.productCategories|length > 0 %}
+                    <td>
+                        <ul>
+                            {% for category in product.productCategories %}
+                                <li>{{ category }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                {% else %}
+                    <td>No Caregories</td>
+                {% endif %}
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('admin_product_show', { 'id': product.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('admin_product_edit', { 'id': product.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_product_new') }}">Create a new product</a>
+        </li>
+    </ul>
+{% endblock %}

@@ -165,17 +165,22 @@ class ProductCategoryController extends Controller
     }
 
     /**
-     * @Route("/list", name="admin_product-category_list")
+     * @Route("/category/list", name="admin_product-category_list")
      * @Method("GET")
      */
-    public function categoryListAction()
+    public function listAction()
     {
-        $em = $this->get('productsbundle.product_category_manager')->getEntityManager();
-        $productCategories = $em->getRepository('ProductsBundle:ProductCategory')->findAllWithImagesOrderedByRank();
+        $productCategories = $this->get('productsbundle.product_category_manager')
+            ->getEntityManager()
+            ->getRepository('ProductsBundle:ProductCategory')
+            ->findAllWithImagesOrderedByRank();
 
         return $this->render('ProductsBundle:productcategory:list.html.twig', array(
             'productCategories' => $productCategories,
         ));
 
     }
+
+
+
 }

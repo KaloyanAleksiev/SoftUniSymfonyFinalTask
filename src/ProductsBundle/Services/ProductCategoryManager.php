@@ -33,17 +33,13 @@ class ProductCategoryManager
         return new $this->class;
     }
 
-    public function getRepository(){
-        return $this->repository;
-    }
-
     public function removeCategory(ProductCategory $productCategory)
     {
         $this->getEntityManager()->remove($productCategory);
         $this->getEntityManager()->flush();
     }
 
-    public function findProductBy(array $criteria)
+    public function findCategoryBy(array $criteria)
     {
         return $this->repository->findBy($criteria);
     }

@@ -10,4 +10,13 @@ namespace ProductsBundle\Repository;
  */
 class ProductRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findAllWithImagesOrderedByRank()
+    {
+        $qb = $this->createQueryBuilder('p');
+        $qb->where('p.image != :identifier')
+            ->setParameter('identifier', '<null>');
+        $qb->orderBy('p.rank');
+
+        return $qb->getQuery()->getResult();
+    }
 }
