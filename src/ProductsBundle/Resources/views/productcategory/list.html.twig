@@ -1,55 +1,35 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Category list</h1>
-
+    {% if parentCategory is defined %}
+        <h1>{{ parentCategory.title }} list</h1>
+    {% else %}
+        <h1>Category list</h1>
+    {% endif %}
     <table>
         <thead>
         <tr>
-            <th>Id</th>
-            <th>Slug</th>
             <th>Title</th>
-            <th>Description</th>
             <th>Image</th>
-            <th>Rank</th>
-            <th>Created At</th>
-            <th>Updated At</th>
-            <th>Actions</th>
         </tr>
         </thead>
         <tbody>
+
         {% for productCategory in productCategories %}
             <tr>
-                <td><a href="{{ path('admin_product-category_show', { 'id': productCategory.id }) }}">{{ productCategory.id }}</a></td>
-                <td>{{ productCategory.slug }}</td>
-                <td>{{ productCategory.title }}</td>
-                <td>{{ productCategory.description }}</td>
-                {% if productCategory.image != null %}
-                    <td><a href="{{ asset('uploads/product-category/' ~ productCategory.image) }}">View image</a></td>
-                {% else %}
-                    <td>No Image</td>
-                {% endif %}
-                <td>{{ productCategory.rank }}</td>
-                <td>{% if productCategory.createdAt %}{{ productCategory.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if productCategory.updatedAt %}{{ productCategory.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('admin_product-category_show', { 'id': productCategory.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('admin_product-category_edit', { 'id': productCategory.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
+        {#@var productCategory \ProductsBundle\Entity\ProductCategory#}
+
+            {% if productCategory.children|length %}
+                <td><a href="{{ path('admin_product-category_list_by_parent', { 'id': productCategory.id }) }}">{{ productCategory.title}}</a></td>
+                <td><a href="{{ path('admin_product-category_list_by_parent', { 'id': productCategory.id }) }}"><img width="100px" height="100px    " src="{{ asset('uploads/product-category/' ~ productCategory.image) }}"></a></td>
+            {% else %}
+                <td><a href="{{ path('admin_product-product_list_by_category', { 'id': productCategory.id }) }}">{{ productCategory.title}}</a></td>
+                <td><a href="{{ path('admin_product-product_list_by_category', { 'id': productCategory.id }) }}"><img width="100px" height="100px    " src="{{ asset('uploads/product-category/' ~ productCategory.image) }}"></a></td>
+            {% endif %}
             </tr>
         {% endfor %}
+
         </tbody>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('admin_product-category_new') }}">Create a new productCategory</a>
-        </li>
-    </ul>
 {% endblock %}

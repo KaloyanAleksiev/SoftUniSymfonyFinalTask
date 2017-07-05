@@ -176,7 +176,7 @@ class ProductCategoryController extends Controller
             ->findAllCategoriesWithImagesOrderedByRank();
 
         return $this->render('ProductsBundle:productcategory:list.html.twig', array(
-            'productCategories' => $productCategories,
+            'productCategories' => $productCategories
         ));
 
     }
@@ -185,6 +185,7 @@ class ProductCategoryController extends Controller
      * @Route("/category/{id}/list", name="admin_product-category_list_by_parent")
      * @Method("GET")
      */
+
     public function listByParentCategoryAction(ProductCategory $productCategory){
 
         $productCategories = $this->get('productsbundle.product_category_manager')
@@ -194,6 +195,23 @@ class ProductCategoryController extends Controller
 
         return $this->render('ProductsBundle:productcategory:list.html.twig', array(
             'productCategories' => $productCategories,
+            'parentCategory' => $productCategory
+        ));
+    }
+
+    /**
+     * @Route("/product/{id}/list", name="admin_product-product_list_by_category")
+     * @Method("GET")
+     */
+
+    public function listProductListByCategory(ProductCategory $productCategory){
+
+        $products = $productCategory->getProducts();
+
+
+        return $this->render('ProductsBundle:product:list.html.twig', array(
+            'products' => $products,
+            'parentCategory' => $productCategory
         ));
     }
 
