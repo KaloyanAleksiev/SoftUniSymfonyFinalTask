@@ -207,6 +207,8 @@ class Product
     }
 
     /**
+     * Get image
+     *
      * @return mixed
      */
     public function getImage()
@@ -215,6 +217,8 @@ class Product
     }
 
     /**
+     * Set image
+     *
      * @param mixed $image
      */
     public function setImage($image)

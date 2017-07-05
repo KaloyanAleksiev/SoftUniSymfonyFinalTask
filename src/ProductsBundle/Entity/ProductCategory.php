@@ -67,6 +67,7 @@ class ProductCategory
     private $parent;
 
     /**
+     * @var ArrayCollection
      *@ORM\OneToMany(targetEntity="ProductsBundle\Entity\ProductCategory", mappedBy="parent")
      */
     private $children;
@@ -180,6 +181,8 @@ class ProductCategory
     }
 
     /**
+     * Get image
+     *
      * @return mixed
      */
     public function getImage()
@@ -188,6 +191,8 @@ class ProductCategory
     }
 
     /**
+     * Set image
+     *
      * @param mixed $image
      */
     public function setImage($image)
@@ -244,27 +249,23 @@ class ProductCategory
     }
 
     /**
-     * Set children
-     *
-     * @param string $children
-     *
-     * @return ProductCategory
-     */
-    public function setChildren($children)
-    {
-        $this->children = $children;
-
-        return $this;
-    }
-
-    /**
      * Get children
      *
-     * @return string
+     * @return ArrayCollection
      */
     public function getChildren()
     {
         return $this->children;
+    }
+
+    /**
+     * Set children
+     *
+     * @param ArrayCollection $children
+     */
+    public function setChildren($children)
+    {
+        $this->children = $children;
     }
 
     /**

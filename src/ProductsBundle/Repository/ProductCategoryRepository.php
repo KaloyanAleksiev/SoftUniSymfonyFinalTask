@@ -2,6 +2,7 @@
 
 namespace ProductsBundle\Repository;
 
+
 /**
  * ProductCategoryRepository
  *
@@ -10,14 +11,32 @@ namespace ProductsBundle\Repository;
  */
 class ProductCategoryRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function findAllWithImagesOrderedByRank()
+    public function findAllCategoriesWithImagesOrderedByRank()
     {
         $qb = $this->createQueryBuilder('pc');
         $qb->where('pc.image != :identifier')
             ->setParameter('identifier', '<null>');
         $qb->orderBy('pc.rank');
-
+        /*
+        if(!is_null($productCategory)){
+            $qb->andWhere('pc.parent = :parent')
+                ->setParameter('parent', $productCategory->getId());
+        }
+    */
     return $qb->getQuery()->getResult();
+    }
+
+    public function findAllSubCategoriesWithImagesOrderedByRank($parentId)
+    {
+        $qb = $this->createQueryBuilder('pc');
+        $qb->where('pc.image != :identifier')
+            ->setParameter('identifier', '<null>');
+        $qb->andWhere('pc.parent = :parent')
+            ->setParameter('parent', $parentId);
+        $qb->orderBy('pc.rank');
+
+
+        return $qb->getQuery()->getResult();
     }
 
 }
