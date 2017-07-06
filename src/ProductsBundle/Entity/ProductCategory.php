@@ -89,6 +89,7 @@ class ProductCategory
     /**
      * @var ArrayCollection
      * @ORM\ManyToMany(targetEntity="ProductsBundle\Entity\Product", mappedBy="productCategories")
+     * @ORM\OrderBy({"rank" = "ASC"})
      */
     private $products;
 

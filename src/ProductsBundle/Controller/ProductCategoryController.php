@@ -208,7 +208,6 @@ class ProductCategoryController extends Controller
 
         $products = $productCategory->getProducts();
 
-
         return $this->render('ProductsBundle:product:list.html.twig', array(
             'products' => $products,
             'parentCategory' => $productCategory
