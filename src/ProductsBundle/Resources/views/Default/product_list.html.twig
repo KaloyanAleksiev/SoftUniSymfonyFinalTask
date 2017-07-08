@@ -19,8 +19,8 @@
         {#@var product \ProductsBundle\Entity\Product#}
 
         <tr>
-            <td><a href="{{ path('admin_product_view', { 'id': product.id}) }}">{{ product.title}}</a></td>
-            <td><a href="{{ path('admin_product_view', { 'id': product.id }) }}"><img width="100px" height="100px    " src="{{ asset('uploads/product/' ~ product.image) }}"></a></td>
+            <td><a href="{{ path('product_view', { 'id': product.id}) }}">{{ product.title}}</a></td>
+            <td><a href="{{ path('product_view', { 'id': product.id }) }}"><img width="100px" height="100px    " src="{{ asset('uploads/product/' ~ product.image) }}"></a></td>
             {% endfor %}
         </tbody>
     </table>

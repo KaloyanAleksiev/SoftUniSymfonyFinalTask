@@ -158,30 +158,4 @@ class ProductController extends Controller
             ->getForm()
         ;
     }
-
-    /**
-     * @Route("/product/list", name="admin_product_list")
-     * @Method("GET")
-     */
-    public function listAction()
-    {
-        $products = $this->get('productsbundle.product_manager')
-            ->getEntityManager()
-            ->getRepository('ProductsBundle:Product')
-            ->findAllWithImagesOrderedByRank();
-        return $this->render('ProductsBundle:product:list.html.twig', array(
-            'products' => $products,
-        ));
-    }
-
-    /**
-     * @Route("/product/{id}/view",name="admin_product_view")
-     * @Method("GET")
-     */
-    public function viewAction(Product $product)
-    {
-        return $this->render('ProductsBundle:product:view.html.twig', array(
-            'product' => $product
-        ));
-    }
 }
