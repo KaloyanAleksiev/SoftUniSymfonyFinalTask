@@ -44,7 +44,10 @@ class ProductController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->get('mailer')->sendNotificationForNewProduct();
+            $sendNotification = $form->get('notification')->getData();
+            if($sendNotification){
+                $this->get('mailer')->sendNotificationForNewProduct();
+            }
             $product->setSlug($this->get('slugger')->slugify($product->getTitle()));
 
             $product->setCreatedAt(new \DateTime());

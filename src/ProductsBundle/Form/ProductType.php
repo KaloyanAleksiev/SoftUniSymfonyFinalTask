@@ -4,6 +4,7 @@ namespace ProductsBundle\Form;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -26,7 +27,8 @@ class ProductType extends AbstractType
             ->add('image', FileType::class, ['data_class' => null, 'label' => 'Upload an image (optional): ', 'required' => false])
             ->add('price', MoneyType::class, ['label' => 'Price: ', 'divisor' => 100, 'required' => true])
             ->add('rank', NumberType::class, ['label' => 'Rank: ', 'required' => true])
-            ->add('productCategories', EntityType::class, ['label' => 'Product category (optional): ', 'class' => 'ProductsBundle:ProductCategory', 'choice_label' => 'title', 'multiple' => true, 'expanded' => true]);
+            ->add('productCategories', EntityType::class, ['label' => 'Product category (optional): ', 'class' => 'ProductsBundle:ProductCategory', 'choice_label' => 'title', 'multiple' => true, 'expanded' => true])
+            ->add('notification', CheckboxType::class,['label' => 'Send notification for new product', 'required' => false, 'mapped' => false]);
     }
 
     /**
