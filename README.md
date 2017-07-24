@@ -7,7 +7,9 @@ Individual Project Assignment for the Symfony 3 course @ SoftUni
 
 
 Design and implement Products bundle. Your project must meet all the requirements listed below.
+
 Requirements
+
 ●	Use fresh installed Symfony 3.2
 ●	Use version control system
 o	Use GitHub or other source control system as project collaboration platform and commit your daily work
