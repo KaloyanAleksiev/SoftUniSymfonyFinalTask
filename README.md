@@ -4,6 +4,7 @@
 A Symfony project created on June 15, 2017, 6:40 pm.
 
 Individual Project Assignment for the Symfony 3 course @ SoftUni
+================================================================
 
 
 Design and implement Products bundle. Your project must meet all the requirements listed below.
