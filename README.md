@@ -9,15 +9,18 @@ Individual Project Assignment for the Symfony 3 course @ SoftUni
 Design and implement Products bundle. Your project must meet all the requirements listed below.
 
 Requirements
-
 ●	Use fresh installed Symfony 3.2
 ●	Use version control system
 o	Use GitHub or other source control system as project collaboration platform and commit your daily work
 Project
 Required functionalities:
+
 Products bundle with the following functionalities:
+
 ●	(required) The SoftUni namespace must be used for the module's name.
+
 ●	Product entity:
+
 ◦	(required, 5pts) Models + DB tables with fields: id, slug, title, subtitle, descritpion, image(optional), price, rank, created_at, updated_at
 ◦	(required, 5pts) CRUD operations with url prefix “admin/product”.
 ◦	(5pts)Images have to be uploaded in web/uploads/product directory
